@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0A0A0C;
+            color: #e5e1e4;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neon-edge-primary {
+            border: 1px solid transparent;
+            background-image: linear-gradient(#131315, #131315), linear-gradient(to right, #d0bcff, #4cd7f6);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(208, 188, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: lightSweep 4s infinite;
+        }
+        @keyframes lightSweep {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        .glow-sm:hover {
+            box-shadow: 0 0 15px rgba(208, 188, 255, 0.3);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d0bcff;
+            border-radius: 999px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#e5e1e4",
+                        "tertiary-fixed": "#ffd9e4",
+                        "tertiary-container": "#f751a1",
+                        "secondary-container": "#03b5d3",
+                        "primary": "#d0bcff",
+                        "surface-variant": "#353437",
+                        "secondary-fixed": "#acedff",
+                        "primary-container": "#a078ff",
+                        "on-secondary-fixed": "#001f26",
+                        "on-secondary-container": "#00424e",
+                        "error": "#ffb4ab",
+                        "tertiary": "#ffb0cd",
+                        "on-tertiary-fixed": "#3e0022",
+                        "surface-container-highest": "#353437",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#0e0e10",
+                        "primary-fixed-dim": "#d0bcff",
+                        "surface-dim": "#131315",
+                        "inverse-surface": "#e5e1e4",
+                        "on-tertiary-container": "#570032",
+                        "inverse-primary": "#6d3bd7",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#5516be",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-primary": "#3c0091",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#23005c",
+                        "outline": "#958ea0",
+                        "on-background": "#e5e1e4",
+                        "primary-fixed": "#e9ddff",
+                        "secondary": "#4cd7f6",
+                        "inverse-on-surface": "#313032",
+                        "on-tertiary-fixed-variant": "#8c0053",
+                        "background": "#131315",
+                        "surface-container": "#201f21",
+                        "surface-bright": "#39393b",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "outline-variant": "#494454",
+                        "tertiary-fixed-dim": "#ffb0cd",
+                        "surface-container-low": "#1c1b1d",
+                        "on-primary-container": "#340080",
+                        "surface": "#131315",
+                        "on-surface-variant": "#cbc3d7",
+                        "surface-tint": "#d0bcff",
+                        "on-secondary": "#003640",
+                        "surface-container-high": "#2a2a2c",
+                        "on-tertiary": "#640039"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "stack-xs": "4px",
+                        "container-max": "1440px",
+                        "stack-lg": "32px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "margin-mobile": "20px",
+                        "stack-sm": "8px",
+                        "panel-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Hanken Grotesk"],
+                        "tag-sm": ["JetBrains Mono"],
+                        "display-lg": ["Space Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "label-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "tag-sm": ["11px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "label-mono": ["13px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface bg-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface-dim/40 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-margin-mobile h-16 shadow-[0_0_15px_rgba(208,188,255,0.1)]">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-primary font-headline-md" style="font-variation-settings: 'FILL' 1;">neurology</span>
+<span class="font-display-lg text-headline-md bg-clip-text text-transparent bg-gradient-to-r from-secondary via-primary to-tertiary">Research Copilot</span>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95">notifications</button>
+<div class="w-8 h-8 rounded-full bg-primary/20 border border-primary/40 overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional headshot of a young, diverse researcher with a slight smile, against a soft-focus studio background with cool blue and violet ambient lighting, maintaining a clean and modern high-fidelity aesthetic for a premium technology platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX55q7M7ztRvATqHOzvcf5Njy2iFShKOOE1zsyyIU70ZO22DQbl4th6JVCsniA7JvMLDlTc10Yjg_GwYpT8wLNDjrcwK-QsWt8POt-wRYQBPpTrVgdW2WJVPmjxaDtE7HDMum9rGOxV8-tP3Po08nxt3lXlAf0SmsaUkNOmpdRajYmnbuYI-AMFHxHo1lErFgIhrYD_LLehN-E5-IBzijypCQ4HXPsfEug2GbVfXRIvBu3AVxzeyGzL9qqYPLhiAppPg7d8P7zJ6Sf"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 mt-16 mb-20 px-margin-mobile pt-stack-lg">
+<!-- Header Section -->
+<header class="flex flex-col gap-stack-md mb-stack-lg">
+<div class="flex items-center justify-between">
+<div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Sources</h1>
+<p class="font-body-md text-on-surface-variant/80">12 documents uploaded</p>
+</div>
+</div>
+<!-- Upload CTA Section -->
+<button class="w-full py-stack-md px-panel-padding bg-gradient-to-r from-secondary via-primary to-tertiary rounded-full flex items-center justify-center gap-stack-sm text-on-primary font-bold shadow-[0_0_20px_rgba(208,188,255,0.3)] shimmer active:scale-95 transition-transform">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="font-headline-md text-[16px]">Upload Document</span>
+</button>
+</header>
+<!-- Search and Filter (Contextual for Sources) -->
+<div class="flex items-center gap-stack-sm mb-stack-md">
+<div class="flex-1 glass-panel rounded-full h-11 flex items-center px-stack-md gap-stack-sm focus-within:ring-1 ring-primary/50 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+<input class="bg-transparent border-none outline-none text-body-md w-full placeholder:text-on-surface-variant/50 focus:ring-0" placeholder="Search my library..." type="text"/>
+</div>
+<button class="glass-panel w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant active:bg-white/5">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+<!-- Document List -->
+<div class="flex flex-col gap-stack-md">
+<!-- Source Card 1 -->
+<div class="glass-panel p-panel-padding rounded-lg flex flex-col gap-stack-md relative group overflow-hidden">
+<div class="flex justify-between items-start">
+<div class="flex gap-stack-md">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center border border-secondary/20">
+<span class="material-symbols-outlined text-secondary">description</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-md text-[16px] text-on-surface leading-tight">Quantum Computing Fundamentals.pdf</h3>
+<span class="font-tag-sm text-tag-sm text-on-surface-variant/60 uppercase tracking-widest mt-1">Uploaded 2 days ago • 4.2 MB</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant/40 hover:text-primary transition-colors">more_vert</button>
+</div>
+<div class="flex items-center justify-between mt-stack-sm">
+<div class="flex gap-stack-xs">
+<span class="px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary font-tag-sm text-[10px]">QUANTUM</span>
+<span class="px-2 py-0.5 rounded bg-secondary/10 border border-secondary/20 text-secondary font-tag-sm text-[10px]">ACADEMIC</span>
+</div>
+<div class="flex items-center gap-stack-sm">
+<span class="font-label-mono text-tag-sm text-on-surface-variant">Add to chat</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary shadow-inner"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Source Card 2 -->
+<div class="glass-panel p-panel-padding rounded-lg flex flex-col gap-stack-md relative group overflow-hidden neon-edge-primary">
+<div class="flex justify-between items-start">
+<div class="flex gap-stack-md">
+<div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center border border-tertiary/20">
+<span class="material-symbols-outlined text-tertiary">article</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-md text-[16px] text-on-surface leading-tight">State of AI Research 2024.docx</h3>
+<span class="font-tag-sm text-tag-sm text-on-surface-variant/60 uppercase tracking-widest mt-1">Uploaded 5 hours ago • 1.8 MB</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant/40 hover:text-primary transition-colors">more_vert</button>
+</div>
+<div class="flex items-center justify-between mt-stack-sm">
+<div class="flex gap-stack-xs">
+<span class="px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary font-tag-sm text-[10px]">AI</span>
+<span class="px-2 py-0.5 rounded bg-surface-variant/50 border border-white/5 text-on-surface-variant font-tag-sm text-[10px]">TRENDS</span>
+</div>
+<div class="flex items-center gap-stack-sm">
+<span class="font-label-mono text-tag-sm text-on-surface-variant">Add to chat</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary shadow-inner"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Source Card 3 -->
+<div class="glass-panel p-panel-padding rounded-lg flex flex-col gap-stack-md relative group overflow-hidden">
+<div class="flex justify-between items-start">
+<div class="flex gap-stack-md">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center border border-secondary/20">
+<span class="material-symbols-outlined text-secondary">database</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-md text-[16px] text-on-surface leading-tight">Dataset_Project_Alpha_v3.csv</h3>
+<span class="font-tag-sm text-tag-sm text-on-surface-variant/60 uppercase tracking-widest mt-1">Uploaded 1 week ago • 14.5 MB</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant/40 hover:text-primary transition-colors">more_vert</button>
+</div>
+<div class="flex items-center justify-between mt-stack-sm">
+<div class="flex gap-stack-xs">
+<span class="px-2 py-0.5 rounded bg-secondary/10 border border-secondary/20 text-secondary font-tag-sm text-[10px]">RAW DATA</span>
+</div>
+<div class="flex items-center gap-stack-sm">
+<span class="font-label-mono text-tag-sm text-on-surface-variant">Add to chat</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary shadow-inner"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Source Card 4 -->
+<div class="glass-panel p-panel-padding rounded-lg flex flex-col gap-stack-md relative group overflow-hidden">
+<div class="flex justify-between items-start">
+<div class="flex gap-stack-md">
+<div class="w-10 h-10 rounded-lg bg-surface-variant flex items-center justify-center border border-white/10">
+<span class="material-symbols-outlined text-on-surface-variant">link</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-md text-[16px] text-on-surface leading-tight">Nature: Neural Networks 2023</h3>
+<span class="font-tag-sm text-tag-sm text-on-surface-variant/60 uppercase tracking-widest mt-1">External Link • Added 2 weeks ago</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant/40 hover:text-primary transition-colors">more_vert</button>
+</div>
+<div class="flex items-center justify-between mt-stack-sm">
+<div class="flex gap-stack-xs">
+<span class="px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary font-tag-sm text-[10px]">NATURE</span>
+<span class="px-2 py-0.5 rounded bg-surface-variant/50 border border-white/5 text-on-surface-variant font-tag-sm text-[10px]">EXTERNAL</span>
+</div>
+<div class="flex items-center gap-stack-sm">
+<span class="font-label-mono text-tag-sm text-on-surface-variant">Add to chat</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary shadow-inner"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-surface-dim/80 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center px-margin-mobile py-stack-sm shadow-[0_-4px_20px_rgba(0,0,0,0.5)] h-16">
+<!-- Sources Tab (Active) -->
+<a class="flex flex-col items-center justify-center text-primary bg-primary/10 rounded-xl px-4 py-1 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+<span class="font-label-mono text-tag-sm">Sources</span>
+</a>
+<!-- Chat Tab -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-white/5 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-mono text-tag-sm">Chat</span>
+</a>
+<!-- Citations Tab -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-white/5 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">format_quote</span>
+<span class="font-label-mono text-tag-sm">Citations</span>
+</a>
+<!-- Profile Tab -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-white/5 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-mono text-tag-sm">Profile</span>
+</a>
+</nav>
+<!-- Floating Atmosphere Elements -->
+<div class="fixed inset-0 pointer-events-none -z-10 opacity-30">
+<div class="absolute top-[20%] left-[10%] w-[150px] h-[150px] bg-primary/20 rounded-full blur-[80px]"></div>
+<div class="absolute bottom-[30%] right-[5%] w-[200px] h-[200px] bg-secondary/20 rounded-full blur-[100px]"></div>
+</div>
+<script>
+        // Simple micro-interaction for document cards
+        document.querySelectorAll('.glass-panel').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL') {
+                    // Visual feedback for tap
+                    card.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        card.style.transform = 'scale(1)';
+                    }, 100);
+                }
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Research Copilot - Chat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0A0A0C;
+            color: #e5e1e4;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neon-border {
+            border: 1px solid transparent;
+            background-image: linear-gradient(#0A0A0C, #0A0A0C), linear-gradient(to right, #4cd7f6, #d0bcff, #ffb0cd);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+        .mesh-gradient {
+            background: radial-gradient(at 0% 0%, rgba(208, 188, 255, 0.15) 0px, transparent 50%),
+                        radial-gradient(at 100% 0%, rgba(76, 215, 246, 0.1) 0px, transparent 50%),
+                        radial-gradient(at 50% 100%, rgba(255, 176, 205, 0.1) 0px, transparent 50%);
+        }
+        .thinking-orb {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(45deg, #d0bcff, #4cd7f6);
+            border-radius: 50%;
+            filter: blur(4px);
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.6; box-shadow: 0 0 10px rgba(208, 188, 255, 0.5); }
+            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 20px rgba(76, 215, 246, 0.8); }
+        }
+        .user-bubble {
+            background: linear-gradient(135deg, rgba(208, 188, 255, 0.2), rgba(76, 215, 246, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .send-button-neon {
+            background: linear-gradient(90deg, #acedff, #d0bcff, #ffb0cd);
+            box-shadow: 0 0 15px rgba(208, 188, 255, 0.4);
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d0bcff; border-radius: 99px; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#e5e1e4",
+                      "tertiary-fixed": "#ffd9e4",
+                      "tertiary-container": "#f751a1",
+                      "secondary-container": "#03b5d3",
+                      "primary": "#d0bcff",
+                      "surface-variant": "#353437",
+                      "secondary-fixed": "#acedff",
+                      "primary-container": "#a078ff",
+                      "on-secondary-fixed": "#001f26",
+                      "on-secondary-container": "#00424e",
+                      "error": "#ffb4ab",
+                      "tertiary": "#ffb0cd",
+                      "on-tertiary-fixed": "#3e0022",
+                      "surface-container-highest": "#353437",
+                      "on-error": "#690005",
+                      "surface-container-lowest": "#0e0e10",
+                      "primary-fixed-dim": "#d0bcff",
+                      "surface-dim": "#131315",
+                      "inverse-surface": "#e5e1e4",
+                      "on-tertiary-container": "#570032",
+                      "inverse-primary": "#6d3bd7",
+                      "error-container": "#93000a",
+                      "on-primary-fixed-variant": "#5516be",
+                      "secondary-fixed-dim": "#4cd7f6",
+                      "on-primary": "#3c0091",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-fixed": "#23005c",
+                      "outline": "#958ea0",
+                      "on-background": "#e5e1e4",
+                      "primary-fixed": "#e9ddff",
+                      "secondary": "#4cd7f6",
+                      "inverse-on-surface": "#313032",
+                      "on-tertiary-fixed-variant": "#8c0053",
+                      "background": "#131315",
+                      "surface-container": "#201f21",
+                      "surface-bright": "#39393b",
+                      "on-secondary-fixed-variant": "#004e5c",
+                      "outline-variant": "#494454",
+                      "tertiary-fixed-dim": "#ffb0cd",
+                      "surface-container-low": "#1c1b1d",
+                      "on-primary-container": "#340080",
+                      "surface": "#131315",
+                      "on-surface-variant": "#cbc3d7",
+                      "surface-tint": "#d0bcff",
+                      "on-secondary": "#003640",
+                      "surface-container-high": "#2a2a2c",
+                      "on-tertiary": "#640039"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "stack-xs": "4px",
+                      "container-max": "1440px",
+                      "stack-lg": "32px",
+                      "gutter": "24px",
+                      "stack-md": "16px",
+                      "margin-mobile": "20px",
+                      "stack-sm": "8px",
+                      "panel-padding": "24px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Hanken Grotesk"],
+                      "tag-sm": ["JetBrains Mono"],
+                      "display-lg": ["Space Grotesk"],
+                      "body-md": ["Hanken Grotesk"],
+                      "headline-lg-mobile": ["Space Grotesk"],
+                      "headline-lg": ["Space Grotesk"],
+                      "headline-md": ["Space Grotesk"],
+                      "label-mono": ["JetBrains Mono"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "tag-sm": ["11px", {"lineHeight": "1", "fontWeight": "600"}],
+                      "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "label-mono": ["13px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="mesh-gradient min-h-screen flex flex-col font-body-md text-body-md">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface-dim/40 backdrop-blur-xl border-b border-white/10 shadow-[0_0_15px_rgba(208,188,255,0.1)]">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">neurology</span>
+<h1 class="font-display-lg text-headline-md bg-clip-text text-transparent bg-gradient-to-r from-secondary via-primary to-tertiary">Research Copilot</h1>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors duration-300">notifications</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/30">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A futuristic professional headshot of a young scientist with subtle biometric data overlays on the side of their face. The lighting is cold and atmospheric with purple and blue highlights, following the glassmorphism and retrofuturistic aesthetic of a high-tech laboratory environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcoSIQS7GxCDf9w4yfoAWPaO593IwzSTXAGkjfKiTMxkIP1ZObmXk9UFsHBfTYyvXzf_oXkWDiT_OLQn7tVZdQAP5eB8CcQhFXqD9yCkBpm1huOcxpdsZ8dVHlPWlCsb6fiy_nKZlQZDceSSO7DlY2PICcccO8CPdb88TNUww1qvtZK6rsuZRv6e9KB_-z2ZRPGP202E21QZz_kCoQFuiq1LVj5GxSFbL_x8bpHfGef7OTyGpvY8kwst7sle8FtDKa74p_Rgk_Hm8_"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 mt-16 mb-24 px-margin-mobile pt-stack-lg overflow-y-auto">
+<div class="max-w-md mx-auto space-y-stack-lg">
+<!-- Context Chip -->
+<div class="flex justify-center">
+<div class="pill-shaped bg-primary/10 border border-primary/30 px-stack-md py-1 rounded-full flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">hub</span>
+<span class="font-tag-sm text-tag-sm text-primary uppercase">Quantum Computing Project</span>
+</div>
+</div>
+<!-- Chat History -->
+<div class="space-y-stack-lg">
+<!-- Assistant Message -->
+<div class="flex gap-stack-md animate-in fade-in slide-in-from-bottom-4 duration-500">
+<div class="w-8 h-8 rounded-lg glass-panel flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="glass-panel p-panel-padding rounded-tr-lg rounded-br-lg rounded-bl-lg max-w-[85%]">
+<p class="font-body-md text-on-surface leading-relaxed">
+                            Hello! I've analyzed the latest papers on topological qubits. Would you like to see a summary of the error correction breakthroughs from the past 48 hours?
+                        </p>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex flex-row-reverse gap-stack-md animate-in fade-in slide-in-from-bottom-4 duration-700">
+<div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<div class="user-bubble p-panel-padding rounded-tl-lg rounded-br-lg rounded-bl-lg max-w-[85%]">
+<p class="font-body-md text-on-surface leading-relaxed">
+                            Yes, please. Focus on the data related to decoherence rates in superconducting circuits.
+                        </p>
+</div>
+</div>
+<!-- Thinking State -->
+<div class="flex gap-stack-md pt-stack-sm animate-pulse">
+<div class="w-8 h-8 flex items-center justify-center shrink-0">
+<div class="thinking-orb"></div>
+</div>
+<div class="flex items-center gap-stack-sm">
+<span class="font-tag-sm text-tag-sm text-secondary/70 italic tracking-wider">Analyzing 4,281 data points...</span>
+</div>
+</div>
+<!-- Assistant Response (Partial) -->
+<div class="flex gap-stack-md animate-in fade-in duration-1000">
+<div class="w-8 h-8 rounded-lg glass-panel flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="glass-panel p-panel-padding rounded-tr-lg rounded-br-lg rounded-bl-lg max-w-[85%] border-l-2 border-l-secondary">
+<p class="font-body-md text-on-surface leading-relaxed mb-stack-md">
+                            Recent findings show a <span class="text-secondary font-bold">14% improvement</span> in decoherence times. The researchers used a novel "shielded lattice" configuration.
+                        </p>
+<div class="grid grid-cols-1 gap-stack-sm mt-stack-md">
+<div class="bg-surface-container-low p-stack-sm rounded border border-white/5 flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-tertiary">description</span>
+<div class="overflow-hidden">
+<p class="font-tag-sm text-on-surface truncate">nature_phys_quantum_2024.pdf</p>
+<p class="text-[9px] text-on-surface-variant font-label-mono">2.4 MB • SOURCE</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Chat Input Area (Fixed above NavBar) -->
+<div class="fixed bottom-16 left-0 w-full px-margin-mobile py-stack-sm bg-background/80 backdrop-blur-md border-t border-white/10 z-40">
+<div class="max-w-md mx-auto flex items-center gap-stack-sm relative">
+<div class="relative flex-1">
+<input class="w-full bg-surface-container-lowest border border-white/10 rounded-full py-3 px-6 text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all duration-300" placeholder="Ask anything about the research..." type="text"/>
+<button class="absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant/70 hover:text-primary material-symbols-outlined text-[20px]">attach_file</button>
+</div>
+<button class="send-button-neon w-12 h-12 rounded-full flex items-center justify-center active:scale-95 transition-transform group">
+<span class="material-symbols-outlined text-on-primary-fixed font-bold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile py-stack-sm bg-surface-dim/80 backdrop-blur-2xl border-t border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.5)] rounded-t-lg">
+<!-- Sources -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-white/5 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="font-label-mono text-tag-sm">Sources</span>
+</a>
+<!-- Chat (ACTIVE) -->
+<a class="flex flex-col items-center justify-center text-primary bg-primary/10 rounded-xl px-4 py-1 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="font-label-mono text-tag-sm">Chat</span>
+</a>
+<!-- Citations -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-white/5 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">format_quote</span>
+<span class="font-label-mono text-tag-sm">Citations</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-white/5 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-mono text-tag-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for the input field
+        const input = document.querySelector('input');
+        input.addEventListener('focus', () => {
+            input.parentElement.classList.add('neon-glow');
+        });
+        input.addEventListener('blur', () => {
+            input.parentElement.classList.remove('neon-glow');
+        });
+
+        // Background movement effect
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+            const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
+            document.body.style.backgroundPosition = `${moveX}px ${moveY}px`;
+        });
+    </script>
+</body></html>

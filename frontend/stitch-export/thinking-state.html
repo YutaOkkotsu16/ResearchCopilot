@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        @keyframes rotate-ring {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .neon-edge-glow {
+            box-shadow: 0 0 1px 1px rgba(208, 188, 255, 0.3), 0 0 15px rgba(208, 188, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ai-orb-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+        .orb-blur-bg {
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle, rgba(208, 188, 255, 0.2) 0%, rgba(76, 215, 246, 0.1) 50%, transparent 70%);
+            filter: blur(20px);
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+        .shimmer-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            animation: shimmer 3s infinite;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d0bcff; border-radius: 999px; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#e5e1e4",
+                      "tertiary-fixed": "#ffd9e4",
+                      "tertiary-container": "#f751a1",
+                      "secondary-container": "#03b5d3",
+                      "primary": "#d0bcff",
+                      "surface-variant": "#353437",
+                      "secondary-fixed": "#acedff",
+                      "primary-container": "#a078ff",
+                      "on-secondary-fixed": "#001f26",
+                      "on-secondary-container": "#00424e",
+                      "error": "#ffb4ab",
+                      "tertiary": "#ffb0cd",
+                      "on-tertiary-fixed": "#3e0022",
+                      "surface-container-highest": "#353437",
+                      "on-error": "#690005",
+                      "surface-container-lowest": "#0e0e10",
+                      "primary-fixed-dim": "#d0bcff",
+                      "surface-dim": "#131315",
+                      "inverse-surface": "#e5e1e4",
+                      "on-tertiary-container": "#570032",
+                      "inverse-primary": "#6d3bd7",
+                      "error-container": "#93000a",
+                      "on-primary-fixed-variant": "#5516be",
+                      "secondary-fixed-dim": "#4cd7f6",
+                      "on-primary": "#3c0091",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-fixed": "#23005c",
+                      "outline": "#958ea0",
+                      "on-background": "#e5e1e4",
+                      "primary-fixed": "#e9ddff",
+                      "secondary": "#4cd7f6",
+                      "inverse-on-surface": "#313032",
+                      "on-tertiary-fixed-variant": "#8c0053",
+                      "background": "#131315",
+                      "surface-container": "#201f21",
+                      "surface-bright": "#39393b",
+                      "on-secondary-fixed-variant": "#004e5c",
+                      "outline-variant": "#494454",
+                      "tertiary-fixed-dim": "#ffb0cd",
+                      "surface-container-low": "#1c1b1d",
+                      "on-primary-container": "#340080",
+                      "surface": "#131315",
+                      "on-surface-variant": "#cbc3d7",
+                      "surface-tint": "#d0bcff",
+                      "on-secondary": "#003640",
+                      "surface-container-high": "#2a2a2c",
+                      "on-tertiary": "#640039"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "stack-xs": "4px",
+                      "container-max": "1440px",
+                      "stack-lg": "32px",
+                      "gutter": "24px",
+                      "stack-md": "16px",
+                      "margin-mobile": "20px",
+                      "stack-sm": "8px",
+                      "panel-padding": "24px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Hanken Grotesk"],
+                      "tag-sm": ["JetBrains Mono"],
+                      "display-lg": ["Space Grotesk"],
+                      "body-md": ["Hanken Grotesk"],
+                      "headline-lg-mobile": ["Space Grotesk"],
+                      "headline-lg": ["Space Grotesk"],
+                      "headline-md": ["Space Grotesk"],
+                      "label-mono": ["JetBrains Mono"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "tag-sm": ["11px", {"lineHeight": "1", "fontWeight": "600"}],
+                      "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "label-mono": ["13px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface-dim text-on-surface selection:bg-primary/30 min-h-screen overflow-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface-dim/40 backdrop-blur-xl border-b border-white/10 shadow-[0_0_15px_rgba(208,188,255,0.1)]">
+<div class="flex items-center gap-stack-md">
+<span class="font-display-lg text-headline-md bg-clip-text text-transparent bg-gradient-to-r from-secondary via-primary to-tertiary">Research Copilot</span>
+</div>
+<div class="hidden md:flex items-center bg-surface-container-highest/50 rounded-full px-4 py-2 border border-white/5 w-96">
+<span class="material-symbols-outlined text-on-surface-variant mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none outline-none text-body-md w-full focus:ring-0 placeholder:text-on-surface-variant/50" placeholder="Search resources..." type="text"/>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="material-symbols-outlined text-primary hover:glow-sm active:scale-95 transition-all" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-primary hover:glow-sm active:scale-95 transition-all" data-icon="settings">settings</button>
+<div class="w-8 h-8 rounded-full border border-primary/20 overflow-hidden ml-2">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKpZKM_LtlnZjK-hSOzQN8Gf767J-sbUDVdUkS-UXafiktSoGKzABVsp6xWSo4VJddRgmZf_fSs_K-SeSajrxn8-2bFlm8DIHnj0nHoAfsvX9XE7hwOgHDpiC35F_h_Q97Knnc-arwQXnl-Iwm_B3AQSLbab-ClYyC1VngJ1XFWmg0IPaC14sbKGK0So10MkIKc_1mF60mtIAlhKS53obKqni-Emny140dqs9uZ3qneP08XyxxBTVMqsDLrkwqMsjq8ULYMgoHjyWp"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-screen fixed left-0 top-16 bg-surface-container-lowest/30 backdrop-blur-md border-r border-white/10 w-64 z-40">
+<div class="p-stack-md mt-4">
+<div class="flex items-center gap-stack-sm p-stack-sm mb-stack-lg">
+<div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="neurology">neurology</span>
+</div>
+<div>
+<h3 class="font-headline-md text-primary text-sm">Project Alpha</h3>
+<p class="font-body-md text-xs text-on-surface-variant/70">Quantum Computing</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant/70 hover:bg-white/5 transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="book_2">book_2</span>
+<span class="font-body-md text-body-md">Library</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary border-r-2 border-primary transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="neurology">neurology</span>
+<span class="font-body-md text-body-md">Active Research</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant/70 hover:bg-white/5 transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-body-md text-body-md">Drafts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant/70 hover:bg-white/5 transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-body-md text-body-md">Archive</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-stack-md border-t border-white/5">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant/70 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="text-sm">Help</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant/70 hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="text-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-64 pt-16 h-screen flex flex-col relative">
+<!-- Active Thinking Canvas -->
+<div class="flex-grow flex flex-col items-center justify-center p-margin-desktop relative overflow-hidden">
+<!-- Animated Background Mesh (Atmospheric) -->
+<div class="absolute inset-0 z-0 opacity-30 pointer-events-none">
+<div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[100px]"></div>
+</div>
+<!-- Central Agent Module -->
+<div class="z-10 flex flex-col items-center text-center max-w-2xl">
+<div class="ai-orb-container mb-stack-lg">
+<div class="orb-blur-bg"></div>
+<img alt="Thinking AI Agent" class="relative z-10 w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtQRpzTIkdu8SI-6tGnDhdzPdbrIhFrgi803Prb4HBl8KvQNRyMuPl0MUETK-OO6yvwMmXb7SS04yFfGKZ8eQ45nQEiFFHx7uBJSDFDjUvXUitxoozGDbbLtH8mh06LuZGnIfj7G5ediFTpo2602VcNM-HgVF0eb2P0hgCCC68bPhkrUMmeAEW3oYqVbQOhPd1Sv2YJqwEayFUDLcbUyvzfTIHbc4NkcMAr30eXOiscWIjNGtpdZEa7Dee4"/>
+<!-- Neon Edge Glow Component around the orb -->
+<div class="absolute inset-0 rounded-full border border-primary/40 animate-pulse-glow"></div>
+</div>
+<div class="space-y-stack-sm">
+<h2 class="font-headline-lg text-primary tracking-tight">Synthesizing research...</h2>
+<p class="font-body-lg text-on-surface-variant/80 max-w-md mx-auto">
+                        Cross-referencing 42 quantum simulation papers with real-time telemetry data to generate architectural patterns.
+                    </p>
+</div>
+<!-- Process Progress Visualization -->
+<div class="mt-stack-lg w-64 h-1 bg-surface-container-highest rounded-full overflow-hidden shimmer-effect">
+<div class="h-full bg-gradient-to-r from-secondary via-primary to-tertiary w-2/3 rounded-full"></div>
+</div>
+<!-- Contextual Data Stream (Bento-lite cards) -->
+<div class="mt-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-gutter w-full">
+<div class="p-panel-padding rounded-lg bg-surface-container-lowest/40 backdrop-blur-md border border-white/10 neon-edge-glow flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary" data-icon="analytics">analytics</span>
+<div class="text-left">
+<span class="font-tag-sm text-secondary uppercase tracking-widest mb-1 block">Data Node 09</span>
+<p class="font-body-md text-sm text-on-surface/90 leading-snug">Extracting key findings from Shor's algorithm optimizations.</p>
+</div>
+</div>
+<div class="p-panel-padding rounded-lg bg-surface-container-lowest/40 backdrop-blur-md border border-white/10 neon-edge-glow flex items-start gap-4">
+<span class="material-symbols-outlined text-tertiary" data-icon="hub">hub</span>
+<div class="text-left">
+<span class="font-tag-sm text-tertiary uppercase tracking-widest mb-1 block">Connection Engine</span>
+<p class="font-body-md text-sm text-on-surface/90 leading-snug">Mapping entanglement correlations to hardware topologies.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Input Field (Floating Glass) -->
+<div class="w-full max-w-4xl mx-auto mb-stack-lg px-margin-mobile relative z-20">
+<div class="p-stack-sm rounded-full bg-surface-container-low/80 backdrop-blur-2xl border border-white/10 shadow-xl flex items-center">
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="attach_file">attach_file</span>
+</button>
+<input class="flex-grow bg-transparent border-none outline-none focus:ring-0 px-4 text-on-surface placeholder:text-on-surface-variant/40 font-body-md" placeholder="Ask a follow-up or add more sources..." type="text"/>
+<button class="bg-primary text-on-primary-container px-6 py-2 rounded-full font-label-mono hover:scale-105 active:scale-95 transition-transform flex items-center gap-2">
+<span>SEND</span>
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile py-stack-sm bg-surface-dim/80 backdrop-blur-2xl border-t border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="font-label-mono text-tag-sm">Sources</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary bg-primary/10 rounded-xl px-4 py-1 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="font-label-mono text-tag-sm">Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="format_quote">format_quote</span>
+<span class="font-label-mono text-tag-sm">Citations</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-mono text-tag-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction: Subtle parallax on the orb based on mouse movement
+        document.addEventListener('mousemove', (e) => {
+            const orb = document.querySelector('.ai-orb-container');
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            if (orb) {
+                orb.style.transform = `translate(${x}px, ${y}px)`;
+            }
+        });
+
+        // Toggle focus state simulation
+        const chatInput = document.querySelector('input');
+        chatInput.addEventListener('focus', () => {
+            chatInput.parentElement.classList.add('neon-edge-glow');
+            chatInput.parentElement.style.borderColor = 'rgba(208, 188, 255, 0.4)';
+        });
+        chatInput.addEventListener('blur', () => {
+            chatInput.parentElement.classList.remove('neon-edge-glow');
+            chatInput.parentElement.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+        });
+    </script>
+</body></html>

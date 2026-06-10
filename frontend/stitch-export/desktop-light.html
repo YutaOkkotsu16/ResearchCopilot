@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Research Copilot | Project Alpha</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --glass-fill: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --neon-glow: rgba(208, 188, 255, 0.15);
+        }
+
+        body {
+            background-color: #0A0A0C;
+            overflow-x: hidden;
+            color: #e5e1e4;
+        }
+
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(208, 188, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(76, 215, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(247, 81, 161, 0.05) 0%, transparent 50%);
+            filter: blur(80px);
+        }
+
+        .glass-panel {
+            backdrop-filter: blur(16px);
+            background: var(--glass-fill);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .neon-edge-focus:focus-within {
+            border-color: transparent;
+            background-image: linear-gradient(#131315, #131315), linear-gradient(to right, #4cd7f6, #d0bcff);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            border-width: 1px;
+        }
+
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: rotate(45deg);
+            animation: lightSweep 4s infinite linear;
+        }
+
+        @keyframes lightSweep {
+            0% { transform: translate(-100%, -100%) rotate(45deg); }
+            100% { transform: translate(100%, 100%) rotate(45deg); }
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d0bcff;
+            border-radius: 999px;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#e5e1e4",
+                    "tertiary-fixed": "#ffd9e4",
+                    "tertiary-container": "#f751a1",
+                    "secondary-container": "#03b5d3",
+                    "primary": "#d0bcff",
+                    "surface-variant": "#353437",
+                    "secondary-fixed": "#acedff",
+                    "primary-container": "#a078ff",
+                    "on-secondary-fixed": "#001f26",
+                    "on-secondary-container": "#00424e",
+                    "error": "#ffb4ab",
+                    "tertiary": "#ffb0cd",
+                    "on-tertiary-fixed": "#3e0022",
+                    "surface-container-highest": "#353437",
+                    "on-error": "#690005",
+                    "surface-container-lowest": "#0e0e10",
+                    "primary-fixed-dim": "#d0bcff",
+                    "surface-dim": "#131315",
+                    "inverse-surface": "#e5e1e4",
+                    "on-tertiary-container": "#570032",
+                    "inverse-primary": "#6d3bd7",
+                    "error-container": "#93000a",
+                    "on-primary-fixed-variant": "#5516be",
+                    "secondary-fixed-dim": "#4cd7f6",
+                    "on-primary": "#3c0091",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-fixed": "#23005c",
+                    "outline": "#958ea0",
+                    "on-background": "#e5e1e4",
+                    "primary-fixed": "#e9ddff",
+                    "secondary": "#4cd7f6",
+                    "inverse-on-surface": "#313032",
+                    "on-tertiary-fixed-variant": "#8c0053",
+                    "background": "#131315",
+                    "surface-container": "#201f21",
+                    "surface-bright": "#39393b",
+                    "on-secondary-fixed-variant": "#004e5c",
+                    "outline-variant": "#494454",
+                    "tertiary-fixed-dim": "#ffb0cd",
+                    "surface-container-low": "#1c1b1d",
+                    "on-primary-container": "#340080",
+                    "surface": "#131315",
+                    "on-surface-variant": "#cbc3d7",
+                    "surface-tint": "#d0bcff",
+                    "on-secondary": "#003640",
+                    "surface-container-high": "#2a2a2c",
+                    "on-tertiary": "#640039"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "stack-xs": "4px",
+                    "container-max": "1440px",
+                    "stack-lg": "32px",
+                    "gutter": "24px",
+                    "stack-md": "16px",
+                    "margin-mobile": "20px",
+                    "stack-sm": "8px",
+                    "panel-padding": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Hanken Grotesk"],
+                    "tag-sm": ["JetBrains Mono"],
+                    "display-lg": ["Space Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Space Grotesk"],
+                    "headline-lg": ["Space Grotesk"],
+                    "headline-md": ["Space Grotesk"],
+                    "label-mono": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "tag-sm": ["11px", {"lineHeight": "1", "fontWeight": "600"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "label-mono": ["13px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="font-body-md text-on-surface">
+<div class="mesh-gradient"></div>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 lg:px-16 h-16 bg-surface-dim/40 backdrop-blur-xl border-b border-white/10 shadow-[0_0_15px_rgba(208,188,255,0.1)]">
+<div class="flex items-center gap-8">
+<span class="font-display-lg text-headline-md bg-clip-text text-transparent bg-gradient-to-r from-secondary via-primary to-tertiary">Research Copilot</span>
+<div class="hidden md:flex items-center bg-surface-container-low/50 border border-white/5 rounded-full px-4 py-1.5 neon-edge-focus">
+<span class="material-symbols-outlined text-primary text-[20px] mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-64 placeholder-on-surface-variant/50" placeholder="Search knowledge base..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="hover:text-primary transition-colors duration-300 relative group">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-tertiary rounded-full shadow-[0_0_8px_rgba(247,81,161,0.6)]"></span>
+</button>
+<button class="hover:text-primary transition-colors duration-300">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full border border-primary/30 overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A high-quality studio portrait of a sophisticated researcher with a neutral expression. The background is a soft, blurred studio setting with cyan and violet rim lighting that matches the futuristic aesthetic of the interface. The image is crisp, with professional color grading and high contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIUdIjZqylDaKF87d7cHkQbHHDuuvS7Bq9xIYAjckRjSD_p5IzoJPQOb2QbRElvgH5yJ5k2ncETISNyI2uXVyl_vEAoJkFEtuB4jNWSmyYKa2lS-Yc3dQW1CQ784PXhAnp_YBrGZc3kmvienDDaeOw23dcSgdCZiuBj0fwBd5BQs4GRZ2Cd3rwBfQLa3-oO_UlyvX6LFPY0TxnQ6wHFZRE2k0hyjFT6L_0c6OqC2svbuG9V1vgxvOVtC9rVuRfa5LVzNAlSTpDBUw9"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar Shell -->
+<aside class="hidden lg:flex flex-col h-[calc(100vh-64px)] fixed left-0 top-16 w-64 bg-surface-container-lowest/30 backdrop-blur-md border-r border-white/10 z-40">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center border border-primary/30">
+<span class="material-symbols-outlined text-primary">neurology</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[16px] text-primary leading-tight">Project Alpha</h3>
+<p class="font-tag-sm text-[10px] text-on-surface-variant/70 tracking-widest uppercase">Quantum Computing</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant/70 hover:bg-white/5 transition-all duration-200 rounded-xl group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">book_2</span>
+<span class="font-body-md">Library</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary border-r-2 border-primary transition-all duration-200 rounded-l-xl" href="#">
+<span class="material-symbols-outlined text-[20px]">neurology</span>
+<span class="font-body-md">Active Research</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant/70 hover:bg-white/5 transition-all duration-200 rounded-xl group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">description</span>
+<span class="font-body-md">Drafts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant/70 hover:bg-white/5 transition-all duration-200 rounded-xl group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">inventory_2</span>
+<span class="font-body-md">Archive</span>
+</a>
+</nav>
+<button class="w-full mt-8 py-3 rounded-full bg-gradient-to-r from-secondary via-primary to-tertiary text-on-primary font-bold shadow-[0_0_15px_rgba(208,188,255,0.3)] hover:scale-[1.02] transition-transform shimmer">
+                New Research
+            </button>
+</div>
+<div class="mt-auto p-6 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant/70 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+<span class="font-body-md">Help</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant/70 hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+<span class="font-body-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Workspace Canvas -->
+<main class="lg:ml-64 pt-24 px-6 lg:px-12 pb-32 min-h-screen">
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter items-start">
+<!-- Left Panel: Context & Data Sources -->
+<section class="xl:col-span-3 space-y-6">
+<div class="glass-panel rounded-lg p-panel-padding">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-md text-[18px] text-primary">Data Sources</h2>
+<span class="material-symbols-outlined text-on-surface-variant/50 text-[20px]">add_circle</span>
+</div>
+<div class="space-y-4">
+<div class="p-3 bg-surface-container-high/40 rounded-xl border border-white/5 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">database</span>
+<div>
+<p class="font-body-md text-[14px] font-medium">Quantum_Lib_V4.json</p>
+<p class="font-tag-sm text-on-surface-variant/60">2.4MB • Updated 2h ago</p>
+</div>
+</div>
+<div class="p-3 bg-surface-container-high/40 rounded-xl border border-white/5 flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">article</span>
+<div>
+<p class="font-body-md text-[14px] font-medium">Entanglement_Paper.pdf</p>
+<p class="font-tag-sm text-on-surface-variant/60">12 Pages • Verified</p>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-panel rounded-lg p-panel-padding">
+<h2 class="font-headline-md text-[18px] text-primary mb-4">Topic Clusters</h2>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-primary/10 border border-primary/30 rounded-full font-tag-sm text-primary">Qubits</span>
+<span class="px-3 py-1 bg-secondary/10 border border-secondary/30 rounded-full font-tag-sm text-secondary">Superposition</span>
+<span class="px-3 py-1 bg-tertiary/10 border border-tertiary/30 rounded-full font-tag-sm text-tertiary">Error Correction</span>
+<span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full font-tag-sm text-on-surface-variant">Gate Logic</span>
+</div>
+</div>
+</section>
+<!-- Center Panel: AI Synthesis Engine -->
+<section class="xl:col-span-6 space-y-6">
+<div class="glass-panel rounded-lg p-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="flex items-center gap-2 text-secondary font-tag-sm">
+<span class="w-2 h-2 bg-secondary rounded-full animate-pulse shadow-[0_0_8px_#4cd7f6]"></span>
+                            AI ANALYZING
+                        </span>
+</div>
+<div class="mb-8">
+<h1 class="font-headline-lg text-primary mb-4">Synthesis: Quantum Decoherece</h1>
+<p class="font-body-lg text-on-surface/80 leading-relaxed">
+                            Based on current datasets, the decoherence rate in Project Alpha's simulated 54-qubit processor shows a non-linear correlation with thermal fluctuations between 15mK and 20mK. This suggests that the current shielding strategy may require <span class="text-secondary border-b border-secondary/30">asymmetric photon damping</span>.
+                        </p>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-8">
+<div class="p-6 bg-surface-container-lowest/50 rounded-2xl border border-white/5 relative group cursor-pointer hover:border-primary/40 transition-colors">
+<p class="font-tag-sm text-on-surface-variant/60 mb-2">CONFIDENCE SCORE</p>
+<p class="font-display-lg text-[32px] text-primary">94.2%</p>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-primary/20 overflow-hidden rounded-b-2xl">
+<div class="h-full bg-primary" style="width: 94.2%"></div>
+</div>
+</div>
+<div class="p-6 bg-surface-container-lowest/50 rounded-2xl border border-white/5 relative group cursor-pointer hover:border-secondary/40 transition-colors">
+<p class="font-tag-sm text-on-surface-variant/60 mb-2">DIVERGENCE RATE</p>
+<p class="font-display-lg text-[32px] text-secondary">0.03</p>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-secondary/20 overflow-hidden rounded-b-2xl">
+<div class="h-full bg-secondary" style="width: 30%"></div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-[16px]">Suggested Next Steps</h3>
+<button class="text-primary font-tag-sm hover:underline">View All</button>
+</div>
+<div class="p-4 bg-white/5 rounded-xl border-l-4 border-primary flex justify-between items-center group">
+<p class="font-body-md">Verify thermal shielding at sub-10mK levels</p>
+<span class="material-symbols-outlined text-primary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</div>
+<div class="p-4 bg-white/5 rounded-xl border-l-4 border-secondary flex justify-between items-center group">
+<p class="font-body-md">Compare results with Ion-Trap benchmarking</p>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</div>
+</div>
+</div>
+<div class="glass-panel rounded-lg p-6 bg-primary/5 border border-primary/20">
+<div class="flex gap-4 items-center">
+<div class="flex-1 bg-surface-dim/80 rounded-full px-6 py-3 border border-white/10 flex items-center">
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-md" placeholder="Ask AI to refine this synthesis..." type="text"/>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">bolt</span>
+</div>
+<button class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Right Panel: Visualizer & Citations -->
+<section class="xl:col-span-3 space-y-6">
+<div class="glass-panel rounded-lg overflow-hidden">
+<div class="h-48 relative">
+<img alt="Quantum Visualization" class="w-full h-full object-cover" data-alt="A futuristic 3D visualization of quantum particles interacting in a digital void. The aesthetic features glowing lines of cyan and violet connecting nodes of light, creating a sense of complex data networking. The style is ultra-high definition, digital art, with a focus on depth, transparency, and vibrant neon glows against a dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy8Si2Vzwf4UqFOa9bQUHpi7wWGtEZNjPM3CZwtleP9ZrcdCNXdX02MDZ2iCvfUndBxR9BeMBdf_zI2KY3AY99b0JXCYkeviKtDAGQYR2rSUe2Edss24PJvuNUot9gmMAzpbfARNBo1pVDd-Qynx38HLg9NIF1NuHq1K9bprKuy5-3besYlstv14tqLMdZITjk4ZATmtL4HumsjfLi4hAxqCLUjI43Gf_iExETL8FiaenI4ZYoRLbWfFcqMXeq5CSA0QzAFbBs7hkI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<span class="font-tag-sm bg-black/40 backdrop-blur px-2 py-1 rounded">LIVE SIMULATION</span>
+</div>
+</div>
+<div class="p-6">
+<h2 class="font-headline-md text-[18px] text-primary mb-2">Interference Map</h2>
+<p class="font-body-md text-[13px] text-on-surface-variant">Real-time mapping of qubit state stability across the lattice.</p>
+<button class="mt-4 w-full py-2 bg-white/5 border border-white/10 rounded-full font-tag-sm hover:bg-white/10 transition-colors">Expand Visualization</button>
+</div>
+</div>
+<div class="glass-panel rounded-lg p-panel-padding">
+<h2 class="font-headline-md text-[18px] text-primary mb-4">Citations</h2>
+<div class="space-y-4">
+<div class="group cursor-pointer">
+<p class="font-body-md text-[14px] leading-snug group-hover:text-primary transition-colors">"Neural Network Error Correction in Surface Codes"</p>
+<p class="font-tag-sm text-on-surface-variant/60">Nature Quantum • 2025</p>
+</div>
+<div class="group cursor-pointer">
+<p class="font-body-md text-[14px] leading-snug group-hover:text-primary transition-colors">"Thermal Noise Limits in Superconducting Qubits"</p>
+<p class="font-tag-sm text-on-surface-variant/60">PRL • 2026</p>
+</div>
+<div class="group cursor-pointer">
+<p class="font-body-md text-[14px] leading-snug group-hover:text-primary transition-colors">"Advancements in Dilution Refrigeration"</p>
+<p class="font-tag-sm text-on-surface-variant/60">Cryo-Journal • 2024</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-5 py-3 bg-surface-dim/80 backdrop-blur-2xl border-t border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined text-[24px]">folder_open</span>
+<span class="font-label-mono text-tag-sm mt-1">Sources</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary bg-primary/10 rounded-xl px-4 py-1 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined text-[24px]">forum</span>
+<span class="font-label-mono text-tag-sm mt-1">Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined text-[24px]">format_quote</span>
+<span class="font-label-mono text-tag-sm mt-1">Citations</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<span class="font-label-mono text-tag-sm mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for glass panels
+        document.querySelectorAll('.glass-panel').forEach(panel => {
+            panel.addEventListener('mousemove', (e) => {
+                const rect = panel.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                panel.style.setProperty('--mouse-x', `${x}px`);
+                panel.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Toggle mobile nav active states (simple simulation)
+        const mobileNavItems = document.querySelectorAll('nav.lg\\:hidden a');
+        mobileNavItems.forEach(item => {
+            item.addEventListener('click', () => {
+                mobileNavItems.forEach(i => {
+                    i.classList.remove('text-primary', 'bg-primary/10', 'rounded-xl', 'px-4', 'py-1');
+                    i.classList.add('text-on-surface-variant');
+                });
+                item.classList.add('text-primary', 'bg-primary/10', 'rounded-xl', 'px-4', 'py-1');
+                item.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>
